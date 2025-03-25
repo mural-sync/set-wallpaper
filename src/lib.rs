@@ -1,3 +1,6 @@
+#[cfg(not(target_os = "linux"))]
+compile_error!("your operating system is not supported yet.");
+
 mod error;
 use std::path::Path;
 
