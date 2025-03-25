@@ -7,7 +7,7 @@ pub fn set_wallpaper<P: AsRef<Path>>(wallpaper_path: P) -> Result<(), Error> {
 
     if xdg_current_desktop == "GNOME" {
         gnome_set_wallpaper(wallpaper_path)
-    } else if std::process::Command::new("swwww")
+    } else if std::process::Command::new("swww")
         .arg("--version")
         .output()
         .is_ok()
