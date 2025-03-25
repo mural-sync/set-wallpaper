@@ -3,12 +3,10 @@ use std::path::Path;
 use crate::Error;
 
 pub fn set_wallpaper<P: AsRef<Path>>(wallpaper_path: P) -> Result<(), Error> {
-    if std::process::Command::new("swww")
+    if std::process::Command::new("swwww")
         .arg("--version")
         .output()
-        .unwrap()
-        .status
-        .success()
+        .is_ok()
     {
         swww_set_wallpaper(wallpaper_path)
     } else {
@@ -25,7 +23,7 @@ fn swww_set_wallpaper<P: AsRef<Path>>(wallpaper_path: P) -> Result<(), Error> {
         .arg("0,0,1,1")
         .arg(wallpaper_path.as_ref())
         .output()
-        .unwrap();
+        .expect("function should only be called if swww is installed.");
 
     if !output.status.success() {
         Err(Error::SWWW {

@@ -21,7 +21,7 @@ impl std::fmt::Display for Error {
                     .unwrap_or("stopped by a signal".to_string()),
                 error_message
             ),
-            Error::WMNotSupported => write!(f, "your window manager is not supported."),
+            Error::WMNotSupported => write!(f, "your window manager is not supported yet."),
         }
     }
 }
