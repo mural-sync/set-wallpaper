@@ -4,6 +4,11 @@ pub enum Error {
         exit_code: Option<i32>,
         error_message: String,
     },
+    XfConfNotInstalled,
+    Xfce {
+        exit_code: Option<i32>,
+        error_message: String,
+    },
     SWWW {
         exit_code: Option<i32>,
         error_message: String,
@@ -20,6 +25,18 @@ impl std::fmt::Display for Error {
             } => write!(
                 f,
                 "failed to set wallpaper for gnome (exit code: {}):\n{}",
+                exit_code
+                    .map(|exit_code| exit_code.to_string())
+                    .unwrap_or("stopped by a signal".to_string()),
+                error_message
+            ),
+            Error::XfConfNotInstalled => write!(f, "xfconf is not installed"),
+            Error::Xfce {
+                exit_code,
+                error_message,
+            } => write!(
+                f,
+                "xfce failed to set your wallpaper (exit code: {}):\n{}",
                 exit_code
                     .map(|exit_code| exit_code.to_string())
                     .unwrap_or("stopped by a signal".to_string()),
